@@ -1,10 +1,17 @@
 package com.example.patagonianapp.di
 
+import androidx.room.Room
 import com.example.patagonianapp.data.repository.LyricsRepositoryImpl
+import com.example.patagonianapp.data.room.Database
+import com.example.patagonianapp.data.room.LyricsDao
 import com.example.patagonianapp.data.service.ApiService
+import com.example.patagonianapp.data.source.LyricLocalSource
+import com.example.patagonianapp.data.source.LyricLocalSourceImpl
 import com.example.patagonianapp.data.source.LyricRemoteSource
 import com.example.patagonianapp.data.source.LyricRemoteSourceImpl
 import com.example.patagonianapp.domain.repository.LyricsRepository
+import com.example.patagonianapp.domain.usecase.GetHistoryUseCase
+import com.example.patagonianapp.domain.usecase.GetHistoryUseCaseImpl
 import com.example.patagonianapp.domain.usecase.GetTheLyricsOfTheSongUseCase
 import com.example.patagonianapp.domain.usecase.GetTheLyricsOfTheSongUseCaseImpl
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +33,14 @@ val moduleApp = module {
     }
     single{ (get() as Retrofit).create(ApiService::class.java) }
 
-    single<LyricsRepository> { LyricsRepositoryImpl(get() as LyricRemoteSource) }
+    single<LyricsRepository> { LyricsRepositoryImpl(get() as LyricRemoteSource, get() as LyricLocalSource) }
     single<LyricRemoteSource> { LyricRemoteSourceImpl(get() as ApiService) }
     single<GetTheLyricsOfTheSongUseCase> { GetTheLyricsOfTheSongUseCaseImpl(get() as LyricsRepository) }
+
+    single { Room
+        .databaseBuilder(androidContext(), Database::class.java, "patagonianDB.db3")
+        .build() }
+
+    single<LyricLocalSource> { LyricLocalSourceImpl((get() as Database).lyricsDao()) }
+    single<GetHistoryUseCase> { GetHistoryUseCaseImpl(get() as LyricsRepository) }
 }

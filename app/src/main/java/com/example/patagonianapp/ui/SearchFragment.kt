@@ -18,7 +18,11 @@ class SearchFragment : Fragment() {
     private var fragmentSearchBinding: FragmentSearchBinding? = null
     private val binding get() = fragmentSearchBinding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         fragmentSearchBinding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,16 +35,12 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.history.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_historyFragment)
+        }
+
         binding.btnSearch.setOnClickListener {
-            if(binding.tvArtist.text?.isEmpty() == true && binding.tvSongTitle.text?.isEmpty() == true){
-                Toast.makeText(requireContext(), getString(R.string.you_must_enter_both), Toast.LENGTH_SHORT).show()
-            } else if(binding.tvArtist.text?.isEmpty() == true){
-                Toast.makeText(requireContext(), getString(R.string.you_must_enter_artist), Toast.LENGTH_SHORT).show()
-            } else if(binding.tvSongTitle.text?.isEmpty() == true){
-                Toast.makeText(requireContext(), getString(R.string.you_must_enter_song), Toast.LENGTH_SHORT).show()
-            } else{
-                navigateToLyrics()
-            }
+            navigateToLyrics()
         }
 
         binding.tvSongTitle.setOnEditorActionListener { _, actionId, _ ->
@@ -55,18 +55,27 @@ class SearchFragment : Fragment() {
     }
 
     private fun navigateToLyrics() {
-        if(isOnline(requireContext())) {
-            val bundle = bundleOf(
-                ARTIST to binding.tvArtist.text.toString(),
-                TITLE to binding.tvSongTitle.text.toString()
-            )
-            findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment, bundle)
+        if(binding.tvArtist.text?.isEmpty() == true && binding.tvSongTitle.text?.isEmpty() == true){
+            Toast.makeText(requireContext(), getString(R.string.you_must_enter_both), Toast.LENGTH_SHORT).show()
+        } else if(binding.tvArtist.text?.isEmpty() == true){
+            Toast.makeText(requireContext(), getString(R.string.you_must_enter_artist), Toast.LENGTH_SHORT).show()
+        } else if(binding.tvSongTitle.text?.isEmpty() == true){
+            Toast.makeText(requireContext(), getString(R.string.you_must_enter_song), Toast.LENGTH_SHORT).show()
         } else{
-            Toast.makeText(requireContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show()
+            if (isOnline(requireContext())) {
+                val bundle = bundleOf(
+                    ARTIST to binding.tvArtist.text.toString(),
+                    TITLE to binding.tvSongTitle.text.toString()
+                )
+                findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment, bundle)
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 
-    companion object{
+    companion object {
         const val TITLE = "title"
         const val ARTIST = "artist"
     }
