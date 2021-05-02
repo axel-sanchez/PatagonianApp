@@ -7,7 +7,7 @@
     tools:context=".ui.SearchFragment">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tvArtist"
+        android:id="@+id/etArtist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -20,14 +20,14 @@
         android:inputType="textCapWords"
         android:padding="10dp"
         android:textColorHint="@color/gray"
-        app:layout_constraintBottom_toTopOf="@+id/tvSongTitle"
+        app:layout_constraintBottom_toTopOf="@+id/etSongTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tvSongTitle"
+        android:id="@+id/etSongTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -43,7 +43,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvArtist" />
+        app:layout_constraintTop_toBottomOf="@+id/etArtist" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSearch"
@@ -57,7 +57,7 @@
         app:layout_constraintBottom_toTopOf="@id/history"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSongTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/etSongTitle" />
 
     <TextView
         android:id="@+id/history"
@@ -69,6 +69,15 @@
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/btnSearch"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/lastSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/history"
         android:gravity="center_horizontal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

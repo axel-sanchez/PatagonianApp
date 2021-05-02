@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_lyricsFragment"
-            app:destination="@id/lyricsFragment" />
+            app:destination="@id/lyricsFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_searchFragment_to_historyFragment"
             app:destination="@id/historyFragment" />

@@ -32,11 +32,7 @@ class HistoryFragment : Fragment() {
     private var fragmentHistoryBinding: FragmentHistoryBinding? = null
     private val binding get() = fragmentHistoryBinding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentHistoryBinding = FragmentHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,6 +45,7 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getLyrics()
         viewModel.getLyricsLiveData().observe(viewLifecycleOwner, {
             if (it.isEmpty()) {
                 binding.emptyState.show()

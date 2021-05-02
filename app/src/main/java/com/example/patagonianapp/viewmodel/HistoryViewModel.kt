@@ -14,17 +14,13 @@ import kotlinx.coroutines.launch
  */
 class HistoryViewModel(private val getHistoryUseCase: GetHistoryUseCase) : ViewModel() {
 
-    private val listData: MutableLiveData<List<LyricsDTO>> by lazy {
-        MutableLiveData<List<LyricsDTO>>().also {
-            getLyrics()
-        }
-    }
+    private val listData: MutableLiveData<List<LyricsDTO>> = MutableLiveData<List<LyricsDTO>>()
 
     private fun setListData(lyricsList: List<LyricsDTO>) {
         listData.postValue(lyricsList)
     }
 
-    private fun getLyrics() {
+    fun getLyrics() {
         viewModelScope.launch {
             setListData(getHistoryUseCase.call())
         }

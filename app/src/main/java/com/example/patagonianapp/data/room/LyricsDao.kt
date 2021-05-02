@@ -10,7 +10,7 @@ import androidx.room.Query
  */
 @Dao
 interface LyricsDao {
-    @Query("SELECT * FROM Lyrics order by title")
+    @Query("SELECT * FROM Lyrics order by id desc")
     suspend fun getAllLyrics(): List<LyricsDTO>
 
     @Query("SELECT * FROM Lyrics where artist like :artist and title like :title")
