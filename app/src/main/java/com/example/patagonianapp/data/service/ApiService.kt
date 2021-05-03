@@ -10,5 +10,5 @@ import retrofit2.http.Path
  */
 interface ApiService{
     @GET("{artist}/{title}")
-    suspend fun searchLyricByArtistAndTittle(@Path("artist") artist: String, @Path("title") title: String): Response<Result>
+    suspend fun searchLyricByArtistAndTittle(@Path("artist") artist: String, @Path("title") title: String): Response<Result?>
 }
