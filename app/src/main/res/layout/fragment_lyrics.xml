@@ -6,7 +6,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.LyricsFragment">
 
+    <TextView
+        android:id="@+id/titleArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:text="Maluma - Hawai"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"/>
+
     <ScrollView
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,6 +30,7 @@
             android:layout_height="wrap_content"
             android:padding="30dp"
             android:visibility="gone"
+            tools:visibility="visible"
             android:gravity="center_horizontal"
             tools:text="@string/text_test"
             android:textSize="25sp" />

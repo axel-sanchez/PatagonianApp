@@ -46,7 +46,12 @@ class LyricsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getLyric(arguments?.getString(ARTIST)?:"", arguments?.getString(TITLE)?:"")
+        val artist = arguments?.getString(ARTIST)?:""
+        val title = arguments?.getString(TITLE)?:""
+
+        binding.titleArtist.text = "$artist - $title"
+
+        viewModel.getLyric(artist, title)
 
         viewModel.getLyricLiveData().observe(viewLifecycleOwner, { result ->
             if (result is Either.Right) {
